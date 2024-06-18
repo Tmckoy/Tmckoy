@@ -1,0 +1,132 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CourseWork_Group_Final_2
+{
+    class Program
+    {
+        static double CalcChildbTax(double cecon, int ecc, double cbus, int bcc, double cfclass, int fcc)
+        {
+            double Child_beforetax;
+            Child_beforetax = (cecon * ecc) + (cbus * bcc) + (cfclass * fcc);
+            return Child_beforetax;
+        }
+        static double CalcAdultbTax(double aecon, int eac, double abus, int bac, double afclass, int fac)
+        {
+            double Adult_beforeTax;
+            Adult_beforeTax = (aecon * eac) + (abus * bac) + (afclass * fac);
+            return Adult_beforeTax;
+        }
+
+
+        static void Main(string[] args)
+        {
+            int age, Eclass_Adult = 0, Bclass_Adult = 0, Fclass_Adult = 0, APass = 0, count = 0;
+            int Eclass_Child = 0, Bclass_Child = 0, Fclass_Child = 0, CPass = 0;
+            double tcode, Child_beforetax = 0, Child_aftertax, Child_addedtax, Adult_beforetax;
+            double Adult_addedtax, Adult_aftertax, Total_money;
+            const double tax = 0.55;
+            double[] Childtcost = new double[3];
+            Childtcost[0] = 5000.00;
+            Childtcost[1] = 10000.00;
+            Childtcost[2] = 15000.00;
+            double[] Adulttcost = new double[3];
+            Adulttcost[0] = 10000.00;
+            Adulttcost[1] = 15000.00;
+            Adulttcost[2] = 20000.00;
+
+
+            while (count <= 5)
+            {
+                Console.WriteLine("Enter Passenger Age");
+                age = Convert.ToInt32(Console.ReadLine());
+                if (age <= 12)
+                {
+                    CPass++;
+                    Console.WriteLine("Enter ticket type");
+                    Console.WriteLine("1: Economy");
+                    Console.WriteLine("2: Business");
+                    Console.WriteLine("3: First Class");
+                    tcode = Convert.ToDouble(Console.ReadLine());
+                    if (tcode == 1)
+                    {
+                        Eclass_Child++;
+                        Console.WriteLine("Your ticket price is {0:c}", Childtcost[0]);
+                        Console.ReadLine();
+                    }
+                    else if (tcode == 2)
+                    {
+                        Bclass_Child++;
+                        Console.WriteLine("Your ticket price is {0:c}", Childtcost[1]);
+                        Console.ReadLine();
+                    }
+                    else if (tcode == 3)
+                    {
+                        Fclass_Child++;
+                        Console.WriteLine("Your ticket price is {0:c}", Childtcost[2]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid code entered");
+                        Console.ReadLine();
+                    }
+
+                }
+                else
+                {
+                    APass++;
+                    Console.WriteLine("Enter ticket type");
+                    Console.WriteLine("1: Economy");
+                    Console.WriteLine("2: Business");
+                    Console.WriteLine("3: First Class");
+                    tcode = Convert.ToDouble(Console.ReadLine());
+                    if (tcode == 1)
+                    {
+                        Eclass_Adult++;
+                        Console.WriteLine("Your ticket price is {0:c}", Adulttcost[0]);
+                        Console.ReadLine();
+                    }
+                    else if (tcode == 2)
+                    {
+                        Bclass_Adult++;
+                        Console.WriteLine("Your tick price is {0:c}", Adulttcost[1]);
+                        Console.ReadLine();
+                    }
+                    else if (tcode == 3)
+                    {
+                       Fclass_Adult++;
+                        Console.WriteLine("Yout ticket price is {0:c}", Adulttcost[2]);
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Code Entered");
+                        Console.ReadLine();
+                    }
+
+                }
+                count++;
+            }
+
+            Child_beforetax = CalcChildbTax(Childtcost[0], Eclass_Child, Childtcost[1], Bclass_Child, Childtcost[2], Fclass_Child);//calculates child amount before tax
+            Child_addedtax = Child_beforetax * tax;//calcultes the amount of tax added to the child amount 
+            Child_aftertax = Child_beforetax + Child_addedtax;//calculates child amount after tax
+            Adult_beforetax = CalcAdultbTax(Adulttcost[0], Eclass_Adult, Adulttcost[1], Bclass_Adult, Adulttcost[2], Fclass_Adult);//calculates adult amount before tax
+            Adult_addedtax = Adult_beforetax * tax;//calculates the amount of tax added to adult amount
+            Adult_aftertax = Adult_beforetax + Adult_addedtax;//calcultes adult amount after tax
+            Total_money = Child_aftertax + Adult_aftertax;//calculates total money collected
+            Console.WriteLine("The total number of child passengers is {0}", CPass);
+            Console.WriteLine("The total amount of money collected from them is {0:c}", Child_aftertax);
+            Console.WriteLine("The total number of adult passengers is {0}", APass);
+            Console.WriteLine("The total amount of money collected from them is {0:c}", Adult_aftertax);
+            Console.WriteLine("Before tax you pay {0}", Child_beforetax);
+            Console.WriteLine("Before tax you pay {0}", Adult_beforetax);
+            Console.ReadLine();
+
+
+        }
+    }
+}
